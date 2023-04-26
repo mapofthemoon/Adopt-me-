@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {COMMON_BASE_URL} from "./source";
 import {Observable} from "rxjs";
-import {Shelter} from "../models/pets";
+import {Pet} from "../models/pets";
 
 @Injectable({
   providedIn: 'root'
@@ -15,20 +15,20 @@ export class PetsService {
     this.BASE_URL = COMMON_BASE_URL + 'pets/';
   }
 
-  public getAllPets(): Observable<Shelter[]>{
-    return this.http.get<Shelter[]>(this.BASE_URL);
+  public getAllPets(): Observable<Pet[]>{
+    return this.http.get<Pet[]>(this.BASE_URL);
   }
 
-  public getPetById(id: number): Observable<Shelter> {
-    return this.http.get<Shelter>(`${this.BASE_URL}${id}`);
+  public getPetById(id: number): Observable<Pet> {
+    return this.http.get<Pet>(`${this.BASE_URL}${id}`);
   }
 
-  public addPet(pet: Shelter): Observable<Shelter> {
-    return this.http.post<Shelter>(`${this.BASE_URL}`, pet);
+  public addPet(pet: Pet): Observable<Pet> {
+    return this.http.post<Pet>(`${this.BASE_URL}`, pet);
   }
 
-  public updatePet(id: number, pet: Shelter): Observable<Shelter> {
-    return this.http.put<Shelter>(`${this.BASE_URL}${id}`, pet);
+  public updatePet(id: number, pet: Pet): Observable<Pet> {
+    return this.http.put<Pet>(`${this.BASE_URL}${id}`, pet);
   }
 
   public deletePet(id: number): Observable<any> {

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Shelter} from "../models/shelters";
 
 @Component({
     selector: 'app-shelters',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
     styleUrls: ['./shelters.component.css']
 })
 export class SheltersComponent {
+  shelters: Shelter
 
 }

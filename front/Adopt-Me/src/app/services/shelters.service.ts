@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {COMMON_BASE_URL} from "./source";
 import {Observable} from "rxjs";
-import {Shelter} from "../models/pets";
+import {Shelter} from "../models/shelters";
 
 @Injectable({
   providedIn: 'root'
