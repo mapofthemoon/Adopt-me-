@@ -6,6 +6,10 @@ import {PetsComponent} from "./pets/pets.component";
 import { SheltersComponent } from './shelters/shelters.component';
 import {WelcomePageComponent} from "./welcome-page/welcome-page.component";
 import {HeaderComponent} from "./header/header.component";
+import {PetsService} from "./services/pets.service";
+import {SheltersService} from "./services/shelters.service";
+import {TypesOfAnimalService} from "./services/types-of-animal.service";
+import {VolunteersService} from "./services/volunteers.service";
 
 @NgModule({
   declarations: [
@@ -18,7 +22,12 @@ import {HeaderComponent} from "./header/header.component";
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [
+    PetsService,
+    SheltersService,
+    TypesOfAnimalService,
+    VolunteersService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
