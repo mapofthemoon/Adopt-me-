@@ -16,7 +16,18 @@ export class SheltersService {
   }
 
   public getAllShelters(): Observable<Shelter[]>{
-    return this.http.get<Shelter[]>(this.BASE_URL);
+    // return this.http.get<Shelter[]>(this.BASE_URL);
+    const shelters = [
+      {id: 1, name: 'X', city: 'Almaty', country: 'Kazakhstan'},
+      {id: 2, name: 'Y', city: 'Astana', country: 'Kazakhstan'},
+      {id: 3, name: 'Z', city: 'Shymkent', country: 'Kazakhstan'},
+    ];
+
+    return new Observable<Shelter[]>(observer => {
+      setTimeout(() => {
+        observer.next(shelters);
+      }, 1000);
+    });
   }
 
   public getShelterById(id: number): Observable<Shelter> {
