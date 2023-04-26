@@ -1,12 +1,29 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Shelter} from "../models/shelters";
+import {SheltersService} from "../services/shelters.service";
 
 @Component({
     selector: 'app-shelters',
     templateUrl: './shelters.component.html',
     styleUrls: ['./shelters.component.css']
 })
-export class SheltersComponent {
-  shelters: Shelter
+export class SheltersComponent implements OnInit{
+  shelters: Shelter[];
+  shelters_not_founded: boolean;
+
+  constructor(private sheltersService: SheltersService) {
+    this.shelters = [];
+    this.shelters_not_founded = false;
+  }
+
+  ngOnInit(): void {
+    this.sheltersService.getAllShelters().subscribe((shelters) => {
+      this.shelters = shelters;
+    }, error => {
+      this.shelters_not_founded = true;
+    });
+  }
+
+
 
 }
