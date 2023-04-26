@@ -1,5 +1,5 @@
 import {Shelter} from "./shelters"
-export interface volonteer {
+export interface volunteer {
     id: number;
     name : string;
     surname : string;
