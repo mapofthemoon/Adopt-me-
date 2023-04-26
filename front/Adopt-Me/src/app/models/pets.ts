@@ -1,5 +1,3 @@
-
-import {Shelter} from './shelters'
 import {Type_of_animal} from './Type_of_animal'
 
 export interface Shelter {
