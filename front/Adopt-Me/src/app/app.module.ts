@@ -10,6 +10,7 @@ import {PetsService} from "./services/pets.service";
 import {SheltersService} from "./services/shelters.service";
 import {TypesOfAnimalService} from "./services/types-of-animal.service";
 import {VolunteersService} from "./services/volunteers.service";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {VolunteersService} from "./services/volunteers.service";
     SheltersComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [
     PetsService,
