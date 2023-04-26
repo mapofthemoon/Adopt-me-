@@ -8,13 +8,58 @@
   </div>
 
   <div *ngIf="!shelters_not_found">
+
+    <button class="btn btn-success" (click)="show_shelter_form=true">ADD SHELTER</button>
+
+    <form *ngIf="show_shelter_form && selected_id == -1" style="width: 60%" (ngSubmit)="add_shelter()">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingName" placeholder="shelter_name" [(ngModel)]="shelter.name">
+        <label for="floatingName">Name</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingCountry" placeholder="shelter_country" [(ngModel)]="shelter.country">
+        <label for="floatingCountry">Country</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingCity" placeholder="shelter_city" [(ngModel)]="shelter.city">
+        <label for="floatingCity">City</label>
+      </div>
+
+      <button class="btn btn-success" type="submit">ADD</button>
+    </form>
+
     <div *ngFor="let s of shelters" class="card">
-      <img src="..." class="card-img-top" alt="...">
+<!--      <img src="..." class="card-img-top" alt="...">-->
       <div class="card-body">
         <h5 class="card-title">{{s.name}}</h5>
         <p class="card-text">{{s.city}}, {{s.country}}</p>
-        <a href="#" class="btn btn-primary">View</a>
+        <a class="btn btn-primary" (click)="edit_shelter(s)">Edit</a>
+        <a class="btn btn-danger" (click)="delete_shelter(s.id)">Delete</a>
       </div>
+
+    <form *ngIf="show_shelter_form && selected_id == s.id" style="width: 60%" (ngSubmit)="update_shelter()">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingName1" placeholder="shelter_name" [(ngModel)]="shelter.name">
+        <label for="floatingName1">Name</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingCountry1" placeholder="shelter_country" [(ngModel)]="shelter.country">
+        <label for="floatingCountry1">Country</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingCity1" placeholder="shelter_city" [(ngModel)]="shelter.city">
+        <label for="floatingCity1">City</label>
+      </div>
+
+      <button class="btn btn-success" type="submit">UPDATE</button>
+    </form>
+
+
     </div>
+
   </div>
 </div>

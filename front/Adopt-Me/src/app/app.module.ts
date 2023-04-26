@@ -12,6 +12,7 @@ import {TypesOfAnimalService} from "./services/types-of-animal.service";
 import {VolunteersService} from "./services/volunteers.service";
 import {HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from "./app-routing.module";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -21,11 +22,12 @@ import {AppRoutingModule} from "./app-routing.module";
     HeaderComponent,
     SheltersComponent,
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        AppRoutingModule,
+        FormsModule,
+    ],
   providers: [
     PetsService,
     SheltersService,
