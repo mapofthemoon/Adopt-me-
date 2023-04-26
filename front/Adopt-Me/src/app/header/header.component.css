@@ -53,12 +53,16 @@
     background-color: #1ea868;
 }
 
-/* .nav .logo {
-  color: #1BC977;
-  float: left;
-  margin: 7px 0 7px 5%;
-  height: 80%;
-} */
+.nav .logo {
+    float: left;
+    margin: 7px 0 7px 5%;
+    height: 90%;
+    color: #1BC977;
+    text-transform: uppercase;
+    font-family: Helvetica, sans-serif;
+    line-height: 40px;
+    font-weight: 400;
+}
 
 
 @media screen and (max-width: 850px) {
