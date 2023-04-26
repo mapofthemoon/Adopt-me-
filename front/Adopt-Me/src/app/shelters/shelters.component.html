@@ -1,12 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Shelters</title>
-</head>
-<body>
-<div *ngIf="shelters_not_found">
-  <h2 class="text-danger">Shelters not found!</h2>
+<div *ngIf="!loaded">
+  <h2 class="text-info">Loading...</h2>
 </div>
-</body>
-</html>
+
+<div *ngIf="loaded">
+  <div *ngIf="shelters_not_found">
+    <h2 class="text-danger">Shelters not found!</h2>
+  </div>
+
+  <div *ngIf="!shelters_not_found">
+    <div *ngFor="let s of shelters" class="card">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{s.name}}</h5>
+        <p class="card-text">{{s.city}}, {{s.country}}</p>
+        <a href="#" class="btn btn-primary">View</a>
+      </div>
+    </div>
+  </div>
+</div>

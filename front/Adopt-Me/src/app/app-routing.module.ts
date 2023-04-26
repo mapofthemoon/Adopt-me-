@@ -7,7 +7,8 @@ import { SheltersComponent } from './shelters/shelters.component';
 const routes: Routes = [
     { path : 'home',component:WelcomePageComponent},
     { path : 'pets', component: PetsComponent},
-    { path : 'shelters', component: SheltersComponent}
+    { path : 'shelters', component: SheltersComponent},
+    { path: '', redirectTo: 'home', pathMatch: 'full'},
 ];
 
 @NgModule({
