@@ -1,0 +1,9 @@
+<div *ngIf="!loaded">
+  <h2 class="text-info">Loading...</h2>
+</div>
+
+<div *ngIf="loaded">
+  <div *ngIf="volunteer_not_found">
+    <h2 class="text-danger">Volunteers not found!</h2>
+  </div>
+</div>

@@ -13,6 +13,7 @@ import {VolunteersService} from "./services/volunteers.service";
 import {HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from "./app-routing.module";
 import {FormsModule} from "@angular/forms";
+import { VolunteersComponent } from './volunteers/volunteers.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {FormsModule} from "@angular/forms";
     PetsComponent,
     HeaderComponent,
     SheltersComponent,
+    VolunteersComponent,
   ],
     imports: [
         BrowserModule,
