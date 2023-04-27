@@ -27,6 +27,7 @@ export class PetsComponent implements OnInit{
       this.loaded = true;
     }, err => {
       this.pets_not_found = true;
+      this.loaded = true;
     });
   }
 
