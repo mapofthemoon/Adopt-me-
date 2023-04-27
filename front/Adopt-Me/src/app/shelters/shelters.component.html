@@ -9,7 +9,7 @@
 
   <div *ngIf="!shelters_not_found">
 
-    <button class="btn btn-success bt-5" (click)="show_shelter_form=true" [disabled]="show_shelter_form">ADD SHELTER</button>
+    <button class="btn btn-success my-4" (click)="show_shelter_form=true" [disabled]="show_shelter_form">ADD SHELTER</button>
 
     <form class="card px-5 py-5" *ngIf="show_shelter_form && selected_id == -1" style="width: 60%" (ngSubmit)="add_shelter()">
       <div class="form-floating mb-3 ml-3">
@@ -38,10 +38,10 @@
         <h5 class="card-title">{{s.name}}</h5>
         <p class="card-text">{{s.city}}, {{s.country}}</p>
         <button class="btn btn-primary" (click)="edit_shelter(s)" [disabled]="show_shelter_form">Edit</button>
-        <button class="btn btn-danger" (click)="delete_shelter(s.id)">Delete</button>
+        <button class="btn btn-danger ml-3" (click)="delete_shelter(s.id)">Delete</button>
       </div>
 
-    <form class="card px-5 py-5" *ngIf="show_shelter_form && selected_id == s.id" style="width: 60%" (ngSubmit)="update_shelter()">
+    <form class="card px-5 py-5 mx-3 my-3" *ngIf="show_shelter_form && selected_id == s.id" style="width: 60%" (ngSubmit)="update_shelter()">
       <div class="form-floating mb-3  ml-3">
         <input type="text" class="form-control" id="floatingName{{s.id}}" placeholder="shelter_name" name="shelter_name_{{s.id}}" [(ngModel)]="shelter.name">
         <label for="floatingName{{s.id}}">Name</label>
