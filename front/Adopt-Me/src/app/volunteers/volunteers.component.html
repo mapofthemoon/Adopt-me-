@@ -7,6 +7,23 @@
     <h2 class="text-danger">Volunteers not found!</h2>
   </div>
 
+  <button class="btn btn-success my-4" [disabled]="show_volunteer_form" (click)="show_volunteer_form=true">ADD VOLUNTEER</button>
+
+  <form class="form mb-3 px-4 py-4" *ngIf="show_volunteer_form && volunteer_id == -1">
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="floating_name" placeholder="volunteer_name">
+      <label for="floating_name">Name: </label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control" id="floating_surname" placeholder="volunteer_surname">
+      <label for="floating_surname">Surname: </label>
+    </div>
+    <div class="form-floating">
+      <input type="number" class="form-control" id="floating_age" placeholder="volunteer_age">
+      <label for="floating_surname">Age: </label>
+    </div>
+  </form>
+
   <div *ngIf="!volunteer_not_found">
     <div class="card" *ngFor="let v of volunteers">
       <div class="card-body">
