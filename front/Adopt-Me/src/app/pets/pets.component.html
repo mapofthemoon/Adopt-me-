@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div *ngIf="!loaded">
+  <h2 class="text-primary mt-4 mr-4">Loading...</h2>
+</div>
 
-</body>
-</html>
+<div *ngIf="loaded">
+  <div *ngIf="pets_not_found">
+    <h2 class="text-danger mt-4 mr-4">Pets not founded!</h2>
+  </div>
+
+  <div *ngIf="!pets_not_found"></div>
+</div>

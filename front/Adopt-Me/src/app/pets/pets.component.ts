@@ -21,6 +21,13 @@ export class PetsComponent implements OnInit{
 
   ngOnInit(): void {
     this.loaded = false;
+
+    this.petsService.getAllPets().subscribe((pets) => {
+      this.pets = pets;
+      this.loaded = true;
+    }, err => {
+      this.pets_not_found = true;
+    });
   }
 
 
