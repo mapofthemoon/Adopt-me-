@@ -93,4 +93,10 @@ export class VolunteersComponent implements OnInit{
       console.log('Error deleting volunteer!')
     });
   }
+
+  show_add_volunteer_form(){
+    this.show_volunteer_form = true;
+    this.volunteer = {} as volunteer;
+    this.volunteer_id = -1;
+  }
 }

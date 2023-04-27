@@ -9,7 +9,7 @@
 
   <div *ngIf="!volunteer_not_found">
 
-    <button class="btn btn-success mx-4 my-4" [disabled]="show_volunteer_form" (click)="show_volunteer_form=true">ADD VOLUNTEER</button>
+    <button class="btn btn-success mx-4 my-4" [disabled]="show_volunteer_form" (click)="show_add_volunteer_form()">ADD VOLUNTEER</button>
 
     <form (ngSubmit)="add_volunteer()" class="card mb-3 px-4 py-4" *ngIf="show_volunteer_form && volunteer_id == -1">
       <div class="form-floating mb-3">
@@ -37,15 +37,15 @@
       <button class="btn btn-secondary" (click)="show_volunteer_form=false">CANCEL</button>
     </form>
 
-    <div class="card" *ngFor="let v of volunteers">
+    <div class="card mb-3" *ngFor="let v of volunteers">
       <div class="card-body">
         <h5 class="card-title">{{v.name}} {{v.surname}}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{v.working_shelter.name}}</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Works at {{v.working_shelter.name}} shelter</h6>
         <p class="card-text">{{v.age}} years old.</p>
         <button class="btn btn-primary mr-3" [disabled]="show_volunteer_form" (click)="edit_volunteer(v)">Edit</button>
         <button class="btn btn-danger" (click)="delete_volunteer(v.id)">Delete</button>
 
-        <form (ngSubmit)="update_volunteer()" class="card mb-3 px-4 py-4" *ngIf="show_volunteer_form && volunteer_id == v.id">
+        <form (ngSubmit)="update_volunteer()" class="card my-3 px-4 py-4" *ngIf="show_volunteer_form && volunteer_id == v.id">
           <div class="form-floating mb-3">
             <input type="text" class="form-control" id="floating_name_{{v.id}}" placeholder="volunteer_name_{{v.id}}" name="volunteer_name_{{v.id}}" [(ngModel)]="volunteer.name">
             <label for="floating_name_{{v.id}}">Name: </label>
@@ -61,6 +61,7 @@
 
           <div class="form-floating mb-4">
             <select class="form-select" id="volunteer_shelter_{{v.id}}" aria-label="Floating label select example" name="volunteer_shelter_{{v.id}}" [(ngModel)]="volunteer.working_shelter">
+              <option [ngValue]="volunteer.working_shelter" selected>{{volunteer.working_shelter.name}}</option>
               <option *ngFor="let sh of shelters" [ngValue]="sh">{{sh.name}}</option>
             </select>
             <label for="volunteer_shelter_{{v.id}}">Shelter: </label>
