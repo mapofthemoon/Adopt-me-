@@ -38,7 +38,8 @@ export class SheltersComponent implements OnInit{
 
   add_shelter(){
     this.sheltersService.addShelter(this.shelter).subscribe((s) => {
-      this.shelters.push(s);
+      //temp comment
+      // this.shelters.push(s);
       this.show_shelter_form = false;
     }, err => {
       console.log('Shelter can not be added');

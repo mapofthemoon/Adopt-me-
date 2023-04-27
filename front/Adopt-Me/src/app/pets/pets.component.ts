@@ -70,7 +70,8 @@ export class PetsComponent implements OnInit{
 
   add_pet() {
     this.petsService.addPet(this.pet).subscribe((p) => {
-      this.pets.push(p);
+      //temp comment
+      // this.pets.push(p);
       this.show_pets_form = false;
     }, err => {
       console.log('Can not add pet!');
@@ -79,7 +80,7 @@ export class PetsComponent implements OnInit{
 
   edit_shelter(p: Pet) {
     this.show_pets_form = true;
-    this.pet = {} as Pet;
+    this.pet = p;
     this.pet_id = p.id;
   }
 
@@ -104,6 +105,8 @@ export class PetsComponent implements OnInit{
           break;
         }
       }
+
+      this.show_pets_form = false;
     }, err => {
       console.log('Can not update pet');
     });

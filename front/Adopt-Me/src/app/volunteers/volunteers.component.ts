@@ -54,7 +54,8 @@ export class VolunteersComponent implements OnInit{
     // console.log(this.volunteer);
 
     this.volunteersService.addVolunteer(this.volunteer).subscribe((v) => {
-      this.volunteers.push(v);
+      //temp comment
+      // this.volunteers.push(v);
       this.show_volunteer_form = false;
     }, err => {
       console.log('Volunteer can not be added');

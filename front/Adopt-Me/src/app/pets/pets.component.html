@@ -9,7 +9,7 @@
 
   <div *ngIf="!pets_not_found">
 
-    <button class="btn btn-success mx-4 my-4" [disabled]="show_pets_form" (click)="show_pet_volunteer_form()">ADD SHELTER</button>
+    <button class="btn btn-success mx-4 my-4" [disabled]="show_pets_form" (click)="show_pet_volunteer_form()">ADD PET</button>
 
     <form (ngSubmit)="add_pet()" class="card mb-3 px-4 py-4" *ngIf="show_pets_form && pet_id == -1">
       <div class="form-floating mb-3">
@@ -22,13 +22,6 @@
           <option *ngFor="let t of type_of_animals" [ngValue]="t">{{t.type}}</option>
         </select>
         <label for="pet_type">Type: </label>
-      </div>
-
-      <div class="form-floating mb-4">
-        <select class="form-select" id="pet_shelter" aria-label="Floating label select example" name="pet_shelter" [(ngModel)]="pet.shelter">
-          <option *ngFor="let sh of shelters" [ngValue]="sh">{{sh.name}}</option>
-        </select>
-        <label for="pet_type">Shelter: </label>
       </div>
 
       <div class="form-floating mb-4">
@@ -67,15 +60,9 @@
           <div class="form-floating mb-4">
             <select class="form-select" id="pet_type_{{p.id}}" aria-label="Floating label select example" name="pet_type_{{p.id}}" [(ngModel)]="pet.type_of_animal_id">
               <option *ngFor="let t of type_of_animals" [ngValue]="t">{{t.type}}</option>
+              <option [ngValue]="pet.type_of_animal_id" selected>{{pet.type_of_animal_id.type}}</option>
             </select>
             <label for="pet_type_{{p.id}}">Type: </label>
-          </div>
-
-          <div class="form-floating mb-4">
-            <select class="form-select" id="pet_shelter_{{p.id}}" aria-label="Floating label select example" name="pet_shelter_{{p.id}}" [(ngModel)]="pet.shelter">
-              <option *ngFor="let sh of shelters" [ngValue]="sh">{{sh.name}}</option>
-            </select>
-            <label for="pet_type_{{p.id}}">Shelter: </label>
           </div>
 
           <div class="form-floating mb-4">
@@ -86,6 +73,7 @@
           <div class="form-floating mb-4">
             <select class="form-select" id="volunteer_shelter_{{p.id}}" aria-label="Floating label select example" name="volunteer_shelter_{{p.id}}" [(ngModel)]="pet.shelter">
               <option *ngFor="let sh of shelters" [ngValue]="sh">{{sh.name}}</option>
+              <option [ngValue]="pet.shelter" selected>{{p.shelter.name}}</option>
             </select>
             <label for="volunteer_shelter_{{p.id}}">Shelter: </label>
           </div>
