@@ -7,24 +7,29 @@
     <h2 class="text-danger mt-4 ml-4">Volunteers not found!</h2>
   </div>
 
-
-
   <div *ngIf="!volunteer_not_found">
 
     <button class="btn btn-success mx-4 my-4" [disabled]="show_volunteer_form" (click)="show_volunteer_form=true">ADD VOLUNTEER</button>
 
-    <form class="card mb-3 px-4 py-4" *ngIf="show_volunteer_form && volunteer_id == -1">
+    <form (ngSubmit)="add_volunteer()" class="card mb-3 px-4 py-4" *ngIf="show_volunteer_form && volunteer_id == -1">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floating_name" placeholder="volunteer_name">
+        <input type="text" class="form-control" id="floating_name" placeholder="volunteer_name" name="volunteer_name" [(ngModel)]="volunteer.name">
         <label for="floating_name">Name: </label>
       </div>
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floating_surname" placeholder="volunteer_surname">
+        <input type="text" class="form-control" id="floating_surname" placeholder="volunteer_surname" name="volunteer_surname" [(ngModel)]="volunteer.surname">
         <label for="floating_surname">Surname: </label>
       </div>
       <div class="form-floating mb-4">
-        <input type="number" class="form-control" id="floating_age" placeholder="volunteer_age">
+        <input type="number" class="form-control" id="floating_age" placeholder="volunteer_age" name="volunteer_age" [(ngModel)]="volunteer.age">
         <label for="floating_surname">Age: </label>
+      </div>
+
+      <div class="form-floating mb-4">
+        <select class="form-select" id="volunteer_shelter" aria-label="Floating label select example" name="volunteer_shelter" [(ngModel)]="volunteer.working_shelter">
+          <option *ngFor="let sh of shelters" [ngValue]="sh">{{sh.name}}</option>
+        </select>
+        <label for="volunteer_shelter">Shelter: </label>
       </div>
 
       <button type="submit" class="btn btn-success mb-3">SAVE</button>
@@ -37,8 +42,34 @@
         <h5 class="card-title">{{v.name}} {{v.surname}}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{v.working_shelter.name}}</h6>
         <p class="card-text">{{v.age}} years old.</p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
+        <button class="btn btn-primary mr-3" [disabled]="show_volunteer_form" (click)="edit_volunteer(v)">Edit</button>
+        <button class="btn btn-danger" (click)="delete_volunteer(v.id)">Delete</button>
+
+        <form (ngSubmit)="update_volunteer()" class="card mb-3 px-4 py-4" *ngIf="show_volunteer_form && volunteer_id == v.id">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floating_name_{{v.id}}" placeholder="volunteer_name_{{v.id}}" name="volunteer_name_{{v.id}}" [(ngModel)]="volunteer.name">
+            <label for="floating_name_{{v.id}}">Name: </label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floating_surname_{{v.id}}" placeholder="volunteer_surname_{{v.id}}" name="volunteer_surname_{{v.id}}" [(ngModel)]="volunteer.surname">
+            <label for="floating_surname_{{v.id}}">Surname: </label>
+          </div>
+          <div class="form-floating mb-4">
+            <input type="number" class="form-control" id="floating_age_{{v.id}}" placeholder="volunteer_age_{{v.id}}" name="volunteer_age_{{v.id}}" [(ngModel)]="volunteer.age">
+            <label for="floating_surname_{{v.id}}">Age: </label>
+          </div>
+
+          <div class="form-floating mb-4">
+            <select class="form-select" id="volunteer_shelter_{{v.id}}" aria-label="Floating label select example" name="volunteer_shelter_{{v.id}}" [(ngModel)]="volunteer.working_shelter">
+              <option *ngFor="let sh of shelters" [ngValue]="sh">{{sh.name}}</option>
+            </select>
+            <label for="volunteer_shelter_{{v.id}}">Shelter: </label>
+          </div>
+
+          <button type="submit" class="btn btn-success mb-3">SAVE</button>
+          <br>
+          <button class="btn btn-secondary" (click)="show_volunteer_form=false">CANCEL</button>
+        </form>
       </div>
     </div>
 

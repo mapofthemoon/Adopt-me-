@@ -16,6 +16,7 @@ export class VolunteersComponent implements OnInit{
   show_volunteer_form: boolean;
   volunteer_id: number;
   shelters: Shelter[];
+  volunteer: volunteer;
 
   constructor(
     private volunteersService: VolunteersService,
@@ -27,6 +28,7 @@ export class VolunteersComponent implements OnInit{
     this.show_volunteer_form = false;
     this.volunteer_id = -1;
     this.shelters = [];
+    this.volunteer = {} as volunteer;
   }
 
   ngOnInit(): void {
@@ -48,5 +50,47 @@ export class VolunteersComponent implements OnInit{
   }
 
 
+  add_volunteer() {
+    // console.log(this.volunteer);
 
+    this.volunteersService.addVolunteer(this.volunteer).subscribe((v) => {
+      this.volunteers.push(v);
+      this.show_volunteer_form = false;
+    }, err => {
+      console.log('Volunteer can not be added');
+    });
+  }
+
+  edit_volunteer(v: volunteer) {
+    this.volunteer = v;
+    this.volunteer_id = v.id;
+    this.show_volunteer_form = true;
+  }
+
+  update_volunteer() {
+    this.volunteersService.updateVolunteer(this.volunteer_id, this.volunteer).subscribe((v) => {
+      for(let i = 0; i < this.volunteers.length; i++){
+        if(this.volunteers[i].id == v.id){
+          this.volunteers[i] = v;
+          break;
+        }
+      }
+
+      this.show_volunteer_form = false;
+    }, err => {
+      console.log('Error updating volunteer!');
+    });
+  }
+
+  delete_volunteer(id: number) {
+    this.volunteersService.deleteVolunteer(id).subscribe((status) => {
+      for(let i = 0; i < this.volunteers.length; i++){
+        if(this.volunteers[i].id == id){
+          this.volunteers.splice(i, 1);
+        }
+      }
+    }, err => {
+      console.log('Error deleting volunteer!')
+    });
+  }
 }
