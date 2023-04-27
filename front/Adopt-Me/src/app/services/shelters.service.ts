@@ -11,14 +11,18 @@ export class SheltersService {
 
   private BASE_URL: string;
   //temp
-  private shelters: Shelter[];
+  private _shelters: Shelter[];
+
+  get shelters(): Shelter[] {
+    return this._shelters;
+  }
 
   constructor(private http: HttpClient) {
     this.BASE_URL = COMMON_BASE_URL + 'shelters/';
-    this.shelters =  [
-      {id: 1, name: 'X', city: 'Almaty', country: 'Kazakhstan'},
-      {id: 2, name: 'Y', city: 'Astana', country: 'Kazakhstan'},
-      {id: 3, name: 'Z', city: 'Shymkent', country: 'Kazakhstan'},
+    this._shelters =  [
+      {id: 1, name: 'Kotopes', city: 'Almaty', country: 'Kazakhstan'},
+      {id: 2, name: 'Bayterek', city: 'Astana', country: 'Kazakhstan'},
+      {id: 3, name: 'Otyrar', city: 'Shymkent', country: 'Kazakhstan'},
     ];
   }
 
@@ -27,7 +31,7 @@ export class SheltersService {
 
     return new Observable<Shelter[]>(observer => {
       setTimeout(() => {
-        observer.next(this.shelters);
+        observer.next(this._shelters);
       }, 1000);
     });
   }
@@ -38,7 +42,7 @@ export class SheltersService {
 
   public addShelter(shelter: Shelter): Observable<Shelter> {
     // return this.http.post<Shelter>(`${this.BASE_URL}`, shelter);
-    this.shelters.push(shelter);
+    this._shelters.push(shelter);
 
     return new Observable<Shelter>(observer => {
       setTimeout(() => {
@@ -50,9 +54,9 @@ export class SheltersService {
   public updateShelter(id: number, shelter: Shelter): Observable<Shelter> {
     // return this.http.put<Shelter>(`${this.BASE_URL}${id}`, shelter);
 
-    for(let i = 0; i < this.shelters.length; i++){
-      if(this.shelters[i].id === shelter.id){
-        this.shelters[i] = shelter;
+    for(let i = 0; i < this._shelters.length; i++){
+      if(this._shelters[i].id === shelter.id){
+        this._shelters[i] = shelter;
         break;
       }
     }
@@ -67,9 +71,9 @@ export class SheltersService {
   public deleteShelter(id: number): Observable<any> {
     // return this.http.delete<any>(`${this.BASE_URL}${id}`);
 
-    for(let i = 0; i < this.shelters.length; i++){
-      if(this.shelters[i].id === id){
-        this.shelters.splice(i, 1);
+    for (let i = 0; i < this._shelters.length; i++) {
+      if (this._shelters[i].id === id) {
+        this._shelters.splice(i, 1);
         break;
       }
     }

@@ -3,7 +3,7 @@ import {Shelter} from "./shelters";
 
 export interface Pet {
     id : number;
-    name :string;
+    name: string;
     type_of_animal_id: Type_of_animal;
     age: number;
     shelter: Shelter;
