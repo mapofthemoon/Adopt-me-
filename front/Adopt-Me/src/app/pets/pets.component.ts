@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {PetsService} from "../services/pets.service";
 import {Pet} from "../models/pets";
+import {Type_of_animal} from "../models/Type_of_animal";
+import {TypesOfAnimalService} from "../services/types-of-animal.service";
+import {SheltersService} from "../services/shelters.service";
+import {Shelter} from "../models/shelters";
 @Component({
     selector: 'app-pets',
     templateUrl: './pets.component.html',
@@ -12,11 +16,25 @@ export class PetsComponent implements OnInit{
   pets: Pet[];
   loaded: boolean;
   pets_not_found: boolean;
+  show_pets_form: boolean;
+  pet: Pet;
+  pet_id: number;
+  shelters: Shelter[];
+  type_of_animals: Type_of_animal[];
 
-  constructor(private petsService: PetsService) {
+  constructor(
+    private petsService: PetsService,
+    private typeOfAnimalService: TypesOfAnimalService,
+    private shelterService: SheltersService
+  ) {
     this.pets = [];
     this.loaded = true;
     this.pets_not_found = false;
+    this.show_pets_form = false;
+    this.pet = {} as Pet;
+    this.pet_id = -1;
+    this.type_of_animals = [];
+    this.shelters = [];
   }
 
   ngOnInit(): void {
@@ -29,7 +47,33 @@ export class PetsComponent implements OnInit{
       this.pets_not_found = true;
       this.loaded = true;
     });
+
+    this.typeOfAnimalService.getAllTypesOfAnimals().subscribe((types) => {
+      this.type_of_animals = types;
+    }, err => {
+      console.log('Types of animals not found!');
+    });
+
+    this.shelterService.getAllShelters().subscribe((shelters) => {
+      this.shelters = shelters;
+    }, err => {
+      console.log('Shelters not found!');
+    });
   }
 
 
+  show_pet_volunteer_form() {
+    this.show_pets_form = true;
+    this.pet = {} as Pet;
+    this.pet_id = -1;
+  }
+
+  add_pet() {
+    this.petsService.addPet(this.pet).subscribe((p) => {
+      this.pets.push(p);
+      this.show_pets_form = false;
+    }, err => {
+      console.log('Can not add pet!');
+    });
+  }
 }
