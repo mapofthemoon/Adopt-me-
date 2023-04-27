@@ -9,7 +9,7 @@
 
   <div *ngIf="!shelters_not_found">
 
-    <button class="btn btn-success" (click)="show_shelter_form=true">ADD SHELTER</button>
+    <button class="btn btn-success bt-5" (click)="show_shelter_form=true">ADD SHELTER</button>
 
     <form *ngIf="show_shelter_form && selected_id == -1" style="width: 60%" (ngSubmit)="add_shelter()">
       <div class="form-floating mb-3 ml-3">
@@ -31,7 +31,7 @@
       <button class="btn btn-secondary" (click)="show_shelter_form=false">CANCEL</button>
     </form>
 
-    <div *ngFor="let s of shelters" class="card">
+    <div *ngFor="let s of shelters" class="card mt-3">
 <!--      <img src="..." class="card-img-top" alt="...">-->
       <div class="card-body">
         <h5 class="card-title">{{s.name}}</h5>

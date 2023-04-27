@@ -11,8 +11,16 @@ export class PetsService {
 
   private BASE_URL: string;
 
+  //temp
+  private pets: Pet[];
+
   constructor(private http: HttpClient) {
     this.BASE_URL = COMMON_BASE_URL + 'pets/';
+
+    //temp
+    this.pets = [
+      // {id: 1, }
+    ];
   }
 
   public getAllPets(): Observable<Pet[]>{
