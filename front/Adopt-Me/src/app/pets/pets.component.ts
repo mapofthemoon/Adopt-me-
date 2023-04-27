@@ -1,10 +1,27 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {PetsService} from "../services/pets.service";
+import {Pet} from "../models/pets";
 @Component({
     selector: 'app-pets',
     templateUrl: './pets.component.html',
     styleUrls: ['./pets.component.css']
 })
 
-export class PetsComponent {
+export class PetsComponent implements OnInit{
+
+  pets: Pet[];
+  loaded: boolean;
+  pets_not_found: boolean;
+
+  constructor(private petsService: PetsService) {
+    this.pets = [];
+    this.loaded = true;
+    this.pets_not_found = false;
+  }
+
+  ngOnInit(): void {
+    this.loaded = false;
+  }
+
 
 }
