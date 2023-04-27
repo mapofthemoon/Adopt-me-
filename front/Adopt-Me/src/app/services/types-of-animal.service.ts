@@ -14,8 +14,8 @@ export class TypesOfAnimalService {
     this.BASE_URL = COMMON_BASE_URL + 'types_of_animals/';
   }
 
-  public getAllTypesOfAnimals(): Observable<Type_of_animal> {
-    return this.http.get<Type_of_animal>(this.BASE_URL);
+  public getAllTypesOfAnimals(): Observable<Type_of_animal[]> {
+    return this.http.get<Type_of_animal[]>(this.BASE_URL);
   }
 
   public getTypeOfAnimalById(id: number): Observable<Type_of_animal>{
