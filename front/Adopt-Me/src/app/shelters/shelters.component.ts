@@ -92,4 +92,10 @@ export class SheltersComponent implements OnInit{
       console.log('Error deleting shelter');
     });
   }
+
+  show_add_shelter_form() {
+    this.show_shelter_form = true;
+    this.shelter = {} as Shelter;
+    this.selected_id = -1;
+  }
 }

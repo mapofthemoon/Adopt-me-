@@ -9,7 +9,7 @@
 
   <div *ngIf="!shelters_not_found">
 
-    <button class="btn btn-success my-4" (click)="show_shelter_form=true" [disabled]="show_shelter_form">ADD SHELTER</button>
+    <button class="btn btn-success my-4" (click)="show_add_shelter_form()" [disabled]="show_shelter_form">ADD SHELTER</button>
 
     <form class="card px-5 py-5" *ngIf="show_shelter_form && selected_id == -1" style="width: 60%" (ngSubmit)="add_shelter()">
       <div class="form-floating mb-3 ml-3">
