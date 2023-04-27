@@ -76,4 +76,36 @@ export class PetsComponent implements OnInit{
       console.log('Can not add pet!');
     });
   }
+
+  edit_shelter(p: Pet) {
+    this.show_pets_form = true;
+    this.pet = {} as Pet;
+    this.pet_id = p.id;
+  }
+
+  delete_volunteer(id: number) {
+    this.petsService.deletePet(id).subscribe(status => {
+      for(let i = 0; this.pets.length; i++){
+        if(this.pets[i].id == id){
+          this.pets.splice(i, 1);
+          break;
+        }
+      }
+    }, err => {
+      console.log('Error deleting pet!');
+    });
+  }
+
+  update_pet() {
+    this.petsService.updatePet(this.pet_id, this.pet).subscribe((p) => {
+      for(let i = 0; this.pets.length; i++){
+        if(this.pets[i].id == p.id){
+          this.pets[i] = p;
+          break;
+        }
+      }
+    }, err => {
+      console.log('Can not update pet');
+    });
+  }
 }

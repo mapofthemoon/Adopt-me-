@@ -13,11 +13,26 @@
 
     <form (ngSubmit)="add_pet()" class="card mb-3 px-4 py-4" *ngIf="show_pets_form && pet_id == -1">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floating_name" placeholder="volunteer_name" name="volunteer_name" [(ngModel)]="pet.name">
+        <input type="text" class="form-control" id="floating_name" placeholder="pet_name" name="pet_name" [(ngModel)]="pet.name">
         <label for="floating_name">Name: </label>
       </div>
+
       <div class="form-floating mb-4">
-        <input type="number" class="form-control" id="floating_age" placeholder="volunteer_age" name="volunteer_age" [(ngModel)]="pet.age">
+        <select class="form-select" id="pet_type" aria-label="Floating label select example" name="pet_type" [(ngModel)]="pet.type_of_animal_id">
+          <option *ngFor="let t of type_of_animals" [ngValue]="t">{{t.type}}</option>
+        </select>
+        <label for="pet_type">Type: </label>
+      </div>
+
+      <div class="form-floating mb-4">
+        <select class="form-select" id="pet_shelter" aria-label="Floating label select example" name="pet_shelter" [(ngModel)]="pet.shelter">
+          <option *ngFor="let sh of shelters" [ngValue]="sh">{{sh.name}}</option>
+        </select>
+        <label for="pet_type">Shelter: </label>
+      </div>
+
+      <div class="form-floating mb-4">
+        <input type="number" class="form-control" id="floating_age" placeholder="pet_age" name="pet_age" [(ngModel)]="pet.age">
         <label for="floating_age">Age: </label>
       </div>
 
@@ -33,42 +48,54 @@
       <button class="btn btn-secondary" (click)="show_pets_form=false">CANCEL</button>
     </form>
 
-<!--    <div class="card mb-3" *ngFor="let v of volunteers">-->
-<!--      <div class="card-body">-->
-<!--        <h5 class="card-title">{{v.name}} {{v.surname}}</h5>-->
-<!--        <h6 class="card-subtitle mb-2 text-muted">Works at {{v.working_shelter.name}} shelter</h6>-->
-<!--        <p class="card-text">{{v.age}} years old.</p>-->
-<!--        <button class="btn btn-primary mr-3" [disabled]="show_volunteer_form" (click)="edit_volunteer(v)">Edit</button>-->
-<!--        <button class="btn btn-danger" (click)="delete_volunteer(v.id)">Delete</button>-->
+    <div class="card mb-3" *ngFor="let p of pets">
+      <div class="card-body">
+        <h5 class="card-title">{{p.name}} </h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{p.type_of_animal_id.type}}</h6>
 
-<!--        <form (ngSubmit)="update_volunteer()" class="card my-3 px-4 py-4" *ngIf="show_volunteer_form && volunteer_id == v.id">-->
-<!--          <div class="form-floating mb-3">-->
-<!--            <input type="text" class="form-control" id="floating_name_{{v.id}}" placeholder="volunteer_name_{{v.id}}" name="volunteer_name_{{v.id}}" [(ngModel)]="volunteer.name">-->
-<!--            <label for="floating_name_{{v.id}}">Name: </label>-->
-<!--          </div>-->
-<!--          <div class="form-floating mb-3">-->
-<!--            <input type="text" class="form-control" id="floating_surname_{{v.id}}" placeholder="volunteer_surname_{{v.id}}" name="volunteer_surname_{{v.id}}" [(ngModel)]="volunteer.surname">-->
-<!--            <label for="floating_surname_{{v.id}}">Surname: </label>-->
-<!--          </div>-->
-<!--          <div class="form-floating mb-4">-->
-<!--            <input type="number" class="form-control" id="floating_age_{{v.id}}" placeholder="volunteer_age_{{v.id}}" name="volunteer_age_{{v.id}}" [(ngModel)]="volunteer.age">-->
-<!--            <label for="floating_surname_{{v.id}}">Age: </label>-->
-<!--          </div>-->
+        <p class="card-text">Lives at {{p.shelter.name}} shelter.</p>
+        <p class="card-text">{{p.age}} years old.</p>
+        <button class="btn btn-primary mr-3" [disabled]="show_pets_form" (click)="edit_shelter(p)">Edit</button>
+        <button class="btn btn-danger" (click)="delete_volunteer(p.id)">Delete</button>
 
-<!--          <div class="form-floating mb-4">-->
-<!--            <select class="form-select" id="volunteer_shelter_{{v.id}}" aria-label="Floating label select example" name="volunteer_shelter_{{v.id}}" [(ngModel)]="volunteer.working_shelter">-->
-<!--              <option [ngValue]="volunteer.working_shelter" selected>{{volunteer.working_shelter.name}}</option>-->
-<!--              <option *ngFor="let sh of shelters" [ngValue]="sh">{{sh.name}}</option>-->
-<!--            </select>-->
-<!--            <label for="volunteer_shelter_{{v.id}}">Shelter: </label>-->
-<!--          </div>-->
+        <form (ngSubmit)="update_pet()" class="card my-3 px-4 py-4" *ngIf="show_pets_form && pet_id == p.id">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floating_name_{{p.id}}" placeholder="pet_name_{{p.id}}" name="pet_name_{{p.id}}" [(ngModel)]="pet.name">
+            <label for="floating_name_{{p.id}}">Name: </label>
+          </div>
 
-<!--          <button type="submit" class="btn btn-success mb-3">SAVE</button>-->
-<!--          <br>-->
-<!--          <button class="btn btn-secondary" (click)="show_volunteer_form=false">CANCEL</button>-->
-<!--        </form>-->
-<!--      </div>-->
-<!--    </div>-->
+          <div class="form-floating mb-4">
+            <select class="form-select" id="pet_type_{{p.id}}" aria-label="Floating label select example" name="pet_type_{{p.id}}" [(ngModel)]="pet.type_of_animal_id">
+              <option *ngFor="let t of type_of_animals" [ngValue]="t">{{t.type}}</option>
+            </select>
+            <label for="pet_type_{{p.id}}">Type: </label>
+          </div>
+
+          <div class="form-floating mb-4">
+            <select class="form-select" id="pet_shelter_{{p.id}}" aria-label="Floating label select example" name="pet_shelter_{{p.id}}" [(ngModel)]="pet.shelter">
+              <option *ngFor="let sh of shelters" [ngValue]="sh">{{sh.name}}</option>
+            </select>
+            <label for="pet_type_{{p.id}}">Shelter: </label>
+          </div>
+
+          <div class="form-floating mb-4">
+            <input type="number" class="form-control" id="floating_age_{{p.id}}" placeholder="pet_age_{{p.id}}" name="pet_age_{{p.id}}" [(ngModel)]="pet.age">
+            <label for="floating_age_{{p.id}}">Age: </label>
+          </div>
+
+          <div class="form-floating mb-4">
+            <select class="form-select" id="volunteer_shelter_{{p.id}}" aria-label="Floating label select example" name="volunteer_shelter_{{p.id}}" [(ngModel)]="pet.shelter">
+              <option *ngFor="let sh of shelters" [ngValue]="sh">{{sh.name}}</option>
+            </select>
+            <label for="volunteer_shelter_{{p.id}}">Shelter: </label>
+          </div>
+
+          <button type="submit" class="btn btn-success mb-3">SAVE</button>
+          <br>
+          <button class="btn btn-secondary" (click)="show_pets_form=false">CANCEL</button>
+        </form>
+      </div>
+    </div>
 
   </div>
 </div>
