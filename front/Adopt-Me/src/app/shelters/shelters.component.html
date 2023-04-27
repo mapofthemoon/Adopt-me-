@@ -1,10 +1,10 @@
 <div *ngIf="!loaded">
-  <h2 class="text-info">Loading...</h2>
+  <h2 class="text-info mt-4 ml-4">Loading...</h2>
 </div>
 
 <div *ngIf="loaded">
   <div *ngIf="shelters_not_found">
-    <h2 class="text-danger">Shelters not found!</h2>
+    <h2 class="text-danger mt-4 ml-4">Shelters not found!</h2>
   </div>
 
   <div *ngIf="!shelters_not_found">
