@@ -4,8 +4,8 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from .views import PetList, PetDetail, ShelterList, DonationCreate
 
 urlpatterns = [
-    path('pets/', PetList),
-    path('pets/<int:pk>/', PetDetail),
+    path('pets/', views.PetList),
+    path('pets/<int:pk>/', views.PetDetail),
     path('shelters/', ShelterList.as_view()),
     path('donations/', DonationCreate.as_view()),
 ]
