@@ -14,6 +14,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from "./app-routing.module";
 import {FormsModule} from "@angular/forms";
 import { VolunteersComponent } from './volunteers/volunteers.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { VolunteersComponent } from './volunteers/volunteers.component';
     HeaderComponent,
     SheltersComponent,
     VolunteersComponent,
+    LoginComponent,
   ],
     imports: [
         BrowserModule,
