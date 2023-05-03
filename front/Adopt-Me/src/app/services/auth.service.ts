@@ -17,15 +17,7 @@ export class AuthService {
 
   public login(email: string, password: string):Observable<any> {
     return this.http.post<any>(
-        `${this.BASE_URL}login`,
-        {},
-        {
-          params: {
-            ['email']: email,
-            ['password']: password
-          }
-        }
-        ).pipe(map(array => {
+        `${this.BASE_URL}login?email=${email}&password=${password}`,{}).pipe(map(array => {
             localStorage.setItem('token', array.jwt);
         }));
   }
