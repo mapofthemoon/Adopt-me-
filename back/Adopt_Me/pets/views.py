@@ -2,8 +2,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import pet, adoption, shelter, donation
-from .serializers import PetSerializer, AdoptionSerializer, ShelterSerializer, DonationSerializer
+from .models import pet, adoption, shelter
+from .serializers import PetSerializer, AdoptionSerializer, ShelterSerializer
 
 @api_view(['GET'])
 def PetList(request):
@@ -28,11 +28,5 @@ class ShelterList(APIView):
         serializer = ShelterSerializer(shelters, many=True)
         return Response(serializer.data)
 
-class DonationCreate(APIView):
-    def post(self, request):
-        serializer = DonationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 

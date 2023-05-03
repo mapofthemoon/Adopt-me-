@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import pet, adoption, shelter, donation
+from .models import pet, adoption, shelter
 
 # Serializers using serializer.Serializer
 class PetSerializer(serializers.Serializer):
@@ -49,8 +49,5 @@ class ShelterSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class DonationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = donation
-        fields = '__all__'
+
 

@@ -31,19 +31,6 @@ class shelter(models.Model):
     def to_json(self):
         return self.name
 
-
-class donation(models.Model):
-    donor = models.CharField(max_length=50)
-    donemail = models.EmailField()
-    donphone = models.CharField(max_length=50)
-    amount = models.DecimalField(max_digits=8, decimal_places=2)
-    donation_date = models.DateField(auto_now_add=True)
-    shelter = models.ForeignKey(shelter, on_delete=models.CASCADE, related_name='donations')
-
-    def to_json(self):
-        return f'{self.donor} donated ${self.amount} to {self.shelter.name} on {self.donation_date}'
-
-
 class volonturees(models.Model):
     name = models.CharField(max_length=50)
     surname = models.CharField(max_length = 50)
