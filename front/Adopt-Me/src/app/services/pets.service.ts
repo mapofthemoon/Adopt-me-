@@ -25,8 +25,8 @@ export class PetsService {
 
     //temp
     this.pets = [
-      {id: 1, name: 'Calico', type_of_animal_id: this.typesOfAnimalsService.types_of_animals[0], shelter: this.sheltersService.shelters[0], age: 2},
-      {id: 2, name: 'Korgi', type_of_animal_id: this.typesOfAnimalsService.types_of_animals[1], shelter: this.sheltersService.shelters[1], age: 3}
+    //   {id: 1, name: 'Calico', type_of_animal_id: this.typesOfAnimalsService.types_of_animals[0], shelter: this.sheltersService.shelters[0], age: 2},
+    //   {id: 2, name: 'Korgi', type_of_animal_id: this.typesOfAnimalsService.types_of_animals[1], shelter: this.sheltersService.shelters[1], age: 3}
     ];
   }
 

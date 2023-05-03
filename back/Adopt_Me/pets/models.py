@@ -20,6 +20,7 @@ class shelter(models.Model):
     def to_json(self):
         return self.name
 
+
 class volonturees(models.Model):
     name = models.CharField(max_length=50)
     surname = models.CharField(max_length = 50)
