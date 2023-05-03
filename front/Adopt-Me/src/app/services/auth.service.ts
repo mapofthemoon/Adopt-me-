@@ -31,11 +31,9 @@ export class AuthService {
   }
 
   public logout() {
-      if(localStorage.getItem('token') != null){
-          return this.http.post<any>(`${this.BASE_URL}/logout`, {});
-      }
-
-      return null;
+      return this.http.post<any>(`${this.BASE_URL}/logout`, {}).pipe(map(_ => {
+          localStorage.removeItem('token')
+      }));
   }
 
 
