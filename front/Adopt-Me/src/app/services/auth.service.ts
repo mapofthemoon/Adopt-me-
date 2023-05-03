@@ -26,8 +26,16 @@ export class AuthService {
           }
         }
         ).pipe(map(array => {
-
+            localStorage.setItem('token', array.jwt);
         }));
+  }
+
+  public logout() {
+      if(localStorage.getItem('token') != null){
+          return this.http.post<any>(`${this.BASE_URL}/logout`, {});
+      }
+
+      return null;
   }
 
 
