@@ -12,15 +12,15 @@ class pet(models.Model):
         return self.name
 
 
-class adoption(models.Model):
-    person = models.CharField(max_length=50)
-    email = models.EmailField()
-    phone = models.CharField(max_length=50)
-    animal = models.ForeignKey(pet, on_delete=models.CASCADE, related_name='applications')
-    application_date = models.DateTimeField(auto_now_add=True)
+#class adoption(models.Model):
+# person = models.CharField(max_length=50)
+#email = models.EmailField()
+#phone = models.CharField(max_length=50)
+#animal = models.ForeignKey(pet, on_delete=models.CASCADE, related_name='applications')
+#application_date = models.DateTimeField(auto_now_add=True)
 
-    def to_json(self):
-        return f'{self.person} for {self.animal.name}'
+#def to_json(self):
+ #   return f'{self.person} for {self.animal.name}'
 
 
 class shelter(models.Model):
@@ -41,9 +41,8 @@ class volonturees(models.Model):
         return self.name
 
 
-class type_of_animals(models.Model):
-    breed = models.ForeignKey(pet, on_delete = models.CASCADE, related_name = 'cat dog+')
+# class type_of_animals(models.Model):
+#     breed = models.ForeignKey(pet, on_delete = models.CASCADE, related_name = 'cat dog+')
     
-
-    def to_json(self):
-        return self.breed
+#     def to_json(self):
+#         return self.breed

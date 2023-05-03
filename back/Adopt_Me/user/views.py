@@ -4,7 +4,8 @@ from rest_framework.views import APIView
 from .serializers import userSerializers
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-import jwt, datetime
+import jwt
+import datetime
 
 
 class register(APIView):
@@ -64,7 +65,8 @@ class UserView(APIView):
         user = user.objects.filter(id=payload['id']).first()
         serializer = userSerializers(user)
         return Response(serializer.data)
-    
+
+
 class LogoutView(APIView):
     def post(self, request):
         response = Response()
