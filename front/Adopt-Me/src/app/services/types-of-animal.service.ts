@@ -26,13 +26,13 @@ export class TypesOfAnimalService {
   }
 
   public getAllTypesOfAnimals(): Observable<Type_of_animal[]> {
-    // return this.http.get<Type_of_animal[]>(this.BASE_URL);
+    return this.http.get<Type_of_animal[]>(this.BASE_URL);
 
-    return new Observable<Type_of_animal[]>(observer => {
-      setTimeout(() => {
-        observer.next(this._types_of_animals);
-      }, 0);
-    });
+    // return new Observable<Type_of_animal[]>(observer => {
+    //   setTimeout(() => {
+    //     observer.next(this._types_of_animals);
+    //   }, 0);
+    // });
   }
 
   public getTypeOfAnimalById(id: number): Observable<Type_of_animal>{

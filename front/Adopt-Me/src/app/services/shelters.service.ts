@@ -27,13 +27,13 @@ export class SheltersService {
   }
 
   public getAllShelters(): Observable<Shelter[]>{
-    // return this.http.get<Shelter[]>(this.BASE_URL);
+    return this.http.get<Shelter[]>(this.BASE_URL);
 
-    return new Observable<Shelter[]>(observer => {
-      setTimeout(() => {
-        observer.next(this._shelters);
-      }, 1000);
-    });
+    // return new Observable<Shelter[]>(observer => {
+    //   setTimeout(() => {
+    //     observer.next(this._shelters);
+    //   }, 1000);
+    // });
   }
 
   public getShelterById(id: number): Observable<Shelter> {
@@ -41,47 +41,47 @@ export class SheltersService {
   }
 
   public addShelter(shelter: Shelter): Observable<Shelter> {
-    // return this.http.post<Shelter>(`${this.BASE_URL}`, shelter);
-    this._shelters.push(shelter);
-
-    return new Observable<Shelter>(observer => {
-      setTimeout(() => {
-        observer.next(shelter);
-      }, 1000);
-    });
+    return this.http.post<Shelter>(`${this.BASE_URL}`, shelter);
+    // this._shelters.push(shelter);
+    //
+    // return new Observable<Shelter>(observer => {
+    //   setTimeout(() => {
+    //     observer.next(shelter);
+    //   }, 1000);
+    // });
   }
 
   public updateShelter(id: number, shelter: Shelter): Observable<Shelter> {
-    // return this.http.put<Shelter>(`${this.BASE_URL}${id}`, shelter);
+    return this.http.put<Shelter>(`${this.BASE_URL}${id}`, shelter);
 
-    for(let i = 0; i < this._shelters.length; i++){
-      if(this._shelters[i].id === shelter.id){
-        this._shelters[i] = shelter;
-        break;
-      }
-    }
+    // for(let i = 0; i < this._shelters.length; i++){
+    //   if(this._shelters[i].id === shelter.id){
+    //     this._shelters[i] = shelter;
+    //     break;
+    //   }
+    // }
 
-    return new Observable<Shelter>(observer => {
-      setTimeout(() => {
-        observer.next(shelter);
-      }, 1000);
-    });
+    // return new Observable<Shelter>(observer => {
+    //   setTimeout(() => {
+    //     observer.next(shelter);
+    //   }, 1000);
+    // });
   }
 
   public deleteShelter(id: number): Observable<any> {
-    // return this.http.delete<any>(`${this.BASE_URL}${id}`);
+    return this.http.delete<any>(`${this.BASE_URL}${id}`);
 
-    for (let i = 0; i < this._shelters.length; i++) {
-      if (this._shelters[i].id === id) {
-        this._shelters.splice(i, 1);
-        break;
-      }
-    }
+    // for (let i = 0; i < this._shelters.length; i++) {
+    //   if (this._shelters[i].id === id) {
+    //     this._shelters.splice(i, 1);
+    //     break;
+    //   }
+    // }
 
-    return new Observable<number>(observer => {
-      setTimeout(() => {
-        observer.next(1);
-      }, 1000);
-    });
+    // return new Observable<number>(observer => {
+    //   setTimeout(() => {
+    //     observer.next(1);
+    //   }, 1000);
+    // });
   }
 }

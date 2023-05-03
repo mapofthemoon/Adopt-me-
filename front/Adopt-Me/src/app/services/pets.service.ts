@@ -31,13 +31,13 @@ export class PetsService {
   }
 
   public getAllPets(): Observable<Pet[]>{
-    // return this.http.get<Pet[]>(this.BASE_URL);
+    return this.http.get<Pet[]>(this.BASE_URL);
 
-    return new Observable<Pet[]>(observer => {
-      setTimeout(() => {
-        observer.next(this.pets);
-      } ,0);
-    });
+    // return new Observable<Pet[]>(observer => {
+    //   setTimeout(() => {
+    //     observer.next(this.pets);
+    //   } ,0);
+    // });
   }
 
   public getPetById(id: number): Observable<Pet> {
@@ -45,46 +45,47 @@ export class PetsService {
   }
 
   public addPet(pet: Pet): Observable<Pet> {
-    // return this.http.post<Pet>(`${this.BASE_URL}`, pet);
-    this.pets.push(pet);
-
-    return new Observable<Pet>(observer => {
-      setTimeout(() => {
-        observer.next(pet);
-      } ,0);
-    });
+    return this.http.post<Pet>(`${this.BASE_URL}`, pet);
+    // this.pets.push(pet);
+    //
+    // return new Observable<Pet>(observer => {
+    //   setTimeout(() => {
+    //     observer.next(pet);
+    //   } ,0);
+    // });
   }
 
   public updatePet(id: number, pet: Pet): Observable<Pet> {
-    // return this.http.put<Pet>(`${this.BASE_URL}${id}`, pet);
+    return this.http.put<Pet>(`${this.BASE_URL}${id}`, pet);
 
-    for(let i = 0; this.pets.length; i++){
-      if(this.pets[i].id == pet.id){
-        this.pets[i] = pet;
-        break;
-      }
-    }
+    // for(let i = 0; this.pets.length; i++){
+    //   if(this.pets[i].id == pet.id){
+    //     this.pets[i] = pet;
+    //     break;
+    //   }
+    // }
 
-    return new Observable<Pet>(observer => {
-      setTimeout(() => {
-        observer.next(pet);
-      } ,0);
-    });
+    // return new Observable<Pet>(observer => {
+    //   setTimeout(() => {
+    //     observer.next(pet);
+    //   } ,0);
+    // });
 
   }
 
   public deletePet(id: number): Observable<any> {
-    for(let i = 0; this.pets.length; i++){
-      if(this.pets[i].id == id){
-        this.pets.splice(i, 1);
-        break;
-      }
-    }
-
-    return new Observable<number>(observer => {
-      setTimeout(() => {
-        observer.next(1);
-      }, 1000);
-    });
+    return this.http.delete<any>(`${this.BASE_URL}${id}`)
+    // for(let i = 0; this.pets.length; i++){
+    //   if(this.pets[i].id == id){
+    //     this.pets.splice(i, 1);
+    //     break;
+    //   }
+    // }
+    //
+    // return new Observable<number>(observer => {
+    //   setTimeout(() => {
+    //     observer.next(1);
+    //   }, 1000);
+    // });
   }
 }
