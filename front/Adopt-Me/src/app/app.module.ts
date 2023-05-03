@@ -15,6 +15,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {FormsModule} from "@angular/forms";
 import { VolunteersComponent } from './volunteers/volunteers.component';
 import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { LoginComponent } from './login/login.component';
     SheltersComponent,
     VolunteersComponent,
     LoginComponent,
+    SignupComponent,
   ],
     imports: [
         BrowserModule,

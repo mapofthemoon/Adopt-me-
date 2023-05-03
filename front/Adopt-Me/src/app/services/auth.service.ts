@@ -32,7 +32,8 @@ export class AuthService {
 
   public logout() {
       return this.http.post<any>(`${this.BASE_URL}/logout`, {}).pipe(map(_ => {
-          localStorage.removeItem('token')
+          localStorage.removeItem('token');
+          this.router.navigate(['login']);
       }));
   }
 
