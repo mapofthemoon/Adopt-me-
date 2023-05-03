@@ -3,8 +3,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.http import JsonResponse
 from rest_framework.views import APIView
-from .models import pet, adoption, shelter
-from .serializers import PetSerializer, AdoptionSerializer, ShelterSerializer
+from .models import pet, shelter, volonturees
+from .serializers import PetSerializer, ShelterSerializer, VolontureesSerializer
+from django.shortcuts import render, redirect
 
 @api_view(['GET'])
 def PetList(request):
@@ -28,6 +29,39 @@ class ShelterList(APIView):
         shelters = shelter.objects.all()
         serializer = ShelterSerializer(shelters, many=True)
         return Response(serializer.data)
+
+@api_view(['GET'])
+def ShelterDetail(request, pk):
+    try:
+        shelter = shelter.objects.get(pk=pk)
+    except shelter.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = ShelterSerializer(shelter)
+    return Response(serializer.data)
+
+class VolontureesList(APIView):
+    def get(self, request):
+        volonturees = volonturees.objects.all()
+        serializer = VolontureesSerializer(volonturees, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = VolontureesSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def VolontureesDetail(request, pk):
+    try:
+        volonturees = volonturees.objects.get(pk=pk)
+    except volonturees.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    serializer = VolontureesSerializer(volonturees)
+    return Response(serializer.data)
 
 
 def add_shelter(request):
@@ -79,3 +113,11 @@ def edit_shelter(request, shelter_id):
             return JsonResponse({'error': 'Shelter does not exist.'}, status=404)
     
     return JsonResponse({'error': 'Invalid request method.'})
+
+
+def add_pet(request, name, breed, age, gender, description, photo):
+    new_pet = pet(name=name, breed=breed, age=age, gender=gender, description=description, photo=photo)
+    new_pet.save()
+    return redirect('pet_detail', pk=new_pet.pk)
+
+

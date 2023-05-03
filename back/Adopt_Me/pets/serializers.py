@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import pet, adoption, shelter
+from .models import pet, shelter,  volonturees
 
 # Serializers using serializer.Serializer
 class PetSerializer(serializers.Serializer):
@@ -23,26 +23,6 @@ class PetSerializer(serializers.Serializer):
         return instance
 
 
-class AdoptionSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    person = serializers.CharField(max_length=50)
-    email = serializers.EmailField()
-    phone = serializers.CharField(max_length=50)
-    animal_id = serializers.IntegerField()
-
-    def create(self, validated_data):
-        return adoption.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        instance.person = validated_data.get('person', instance.person)
-        instance.email = validated_data.get('email', instance.email)
-        instance.phone = validated_data.get('phone', instance.phone)
-        instance.animal_id = validated_data.get('animal_id', instance.animal_id)
-        instance.save()
-        return instance
-
-
-# Serializers using serializer.ModelSerializer
 class ShelterSerializer(serializers.ModelSerializer):
     class Meta:
         model = shelter
@@ -50,4 +30,10 @@ class ShelterSerializer(serializers.ModelSerializer):
 
 
 
+class VolontureesSerializer(serializers.ModelSerializer):
+    working_shelter = ShelterSerializer(read_only=True)
+
+    class Meta:
+        model = volonturees
+        fields = '__all__'
 
