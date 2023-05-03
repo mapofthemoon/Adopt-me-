@@ -3,6 +3,9 @@ from .models import user
 from rest_framework.views import APIView
 from .serializers import userSerializers
 from rest_framework.response import Response
+from rest_framework.exceptions import AuthenticationFailed
+
+
 class register(APIView):
     def get(self, request):
         users = user.objects.all()
@@ -16,3 +19,19 @@ class register(APIView):
         return Response(serializer.data)  
 
 
+class login(APIView):
+    def post(self, request):
+        email = request.data['email']
+        password = request.data['password']
+
+        user = user.objects.filter(email=email).first()
+
+        if user is None:
+            raise AuthenticationFailed('User not found!')
+
+        if not user.check_password(password):
+            raise AuthenticationFailed('Incorrect password!')
+        
+        response = Response(user)
+
+    

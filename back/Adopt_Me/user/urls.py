@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.http.response import HttpResponse
-from .views import register
+from .views import register, login
 
 
 urlpatterns = [
-    path('register', register.as_view())
+    path('register', register.as_view()),
+    path('login', login.as_view())
 ]
