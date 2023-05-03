@@ -6,11 +6,15 @@
 <!--        <span class="text-danger" *ngIf="error">Invalid login or password</span>-->
 
         <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput2" placeholder="name@example.com" name="name" [(ngModel)]="user.name">
+            <label for="floatingInput2">Name</label>
+        </div>
+        <div class="form-floating mb-3">
             <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" [(ngModel)]="user.email">
             <label for="floatingInput">Email address</label>
         </div>
         <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput1" placeholder="name@example.com" name="username" [(ngModel)]="user.username">
+            <input type="text" class="form-control" id="floatingInput1" placeholder="name@example.com" name="username" [(ngModel)]="user.username">
             <label for="floatingInput1">Username</label>
         </div>
         <div class="form-floating mb-3">
@@ -22,6 +26,6 @@
             <label for="floatingPassword1">Confirm password</label>
         </div>
 
-        <button type="submit" class="btn btn-success" [disabled]="user.password != password1 && user.email == '' && user.username == '' && user.password == ''">SIGN UP</button>
+        <button type="submit" class="btn btn-success" [disabled]="user.password != password1 || !user.email || !user.username || !user.password || !user.name ">SIGN UP</button>
     </form>
 </div>

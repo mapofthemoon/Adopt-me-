@@ -37,14 +37,6 @@ export class AuthService {
       return this.http.get<User>(`${this.BASE_URL}user`);
   }
 
-  public authenticated(): Observable<boolean>{
-      return new Observable(observer => {
-          setInterval(() => {
-              observer.next(this._authenticated)
-          }, 1000);
-      })
-  }
-
   public signUp(user: User): Observable<User> {
       return this.http.post<User>(`${this.BASE_URL}register`, user);
   }
