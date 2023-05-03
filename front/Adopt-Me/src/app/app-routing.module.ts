@@ -4,12 +4,14 @@ import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { PetsComponent } from './pets/pets.component';
 import { SheltersComponent } from './shelters/shelters.component';
 import {VolunteersComponent} from "./volunteers/volunteers.component";
+import {LoginComponent} from "./login/login.component";
 
 const routes: Routes = [
     { path : 'home',component:WelcomePageComponent},
     { path : 'pets', component: PetsComponent},
     { path : 'shelters', component: SheltersComponent},
     { path : 'volunteers', component: VolunteersComponent},
+    { path : 'login', component: LoginComponent},
     { path : '', redirectTo: 'home', pathMatch: 'full'},
 ];
 
