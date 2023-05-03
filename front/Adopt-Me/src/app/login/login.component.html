@@ -3,6 +3,8 @@
     <form class="card mx-5 px-4 py-4" (ngSubmit)="login()">
         <h2 class="text-primary mb-4">You need to login</h2>
 
+        <span class="text-danger" *ngIf="error">Invalid login or password</span>
+
         <div class="form-floating mb-3">
             <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" [(ngModel)]="email">
             <label for="floatingInput">Email address</label>

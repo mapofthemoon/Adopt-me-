@@ -12,12 +12,17 @@ export class AuthService {
   private BASE_URL: string;
 
   constructor(private http: HttpClient, private router: Router) {
-    this.BASE_URL = `${COMMON_BASE_URL}api/` ;
+    this.BASE_URL = `${COMMON_BASE_URL}` ;
   }
 
   public login(email: string, password: string):Observable<any> {
     return this.http.post<any>(
-        `${this.BASE_URL}login?email=${email}&password=${password}`,{}).pipe(map(array => {
+        `${this.BASE_URL}login`,
+        {
+            'email': email,
+            'password': password
+        }
+    ).pipe(map(array => {
             localStorage.setItem('token', array.jwt);
         }));
   }
