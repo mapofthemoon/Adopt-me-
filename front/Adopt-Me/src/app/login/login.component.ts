@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../services/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {User} from "../models/user";
 
 @Component({
   selector: 'app-login',
@@ -8,19 +9,17 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
-  email: string;
-  password: string;
+  user: User;
   error: boolean;
   ngOnInit(): void {
   }
   constructor(private authService: AuthService, private router: Router) {
-    this.email = ''
-    this.password = ''
+    this.user = {} as User;
     this.error = false
   }
 
   login() {
-    this.authService.login(this.email, this.password).subscribe(_ => {
+    this.authService.login(this.user).subscribe(_ => {
       this.router.navigate(['']);
     }, error => {
       this.error = true

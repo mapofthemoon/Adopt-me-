@@ -13,18 +13,15 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        setInterval(() => {
-            if(localStorage.getItem('token'))
-                this.authenticated = true;
-            else
-                this.authenticated = false;
-        }, 10000);
+        this.authService.authenticated().subscribe(auth => {
+            this.authenticated = auth;
+        })
     }
 
 
     logout() {
         this.authService.logout().subscribe(_=>{
-            this.authenticated = false;
+            // this.authenticated = false;
         });
     }
 }
