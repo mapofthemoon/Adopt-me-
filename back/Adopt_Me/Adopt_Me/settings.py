@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'corseheaders',
+    'corsheaders',
     'pets',
     'user',
 ]
@@ -138,3 +138,4 @@ AUTH_USER_MODEL = 'user.user'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_CREDENTIALS = True
+
