@@ -48,11 +48,11 @@ export class PetsComponent implements OnInit{
       this.loaded = true;
     });
 
-    this.typeOfAnimalService.getAllTypesOfAnimals().subscribe((types) => {
-      this.type_of_animals = types;
-    }, err => {
-      console.log('Types of animals not found!');
-    });
+    // this.typeOfAnimalService.getAllTypesOfAnimals().subscribe((types) => {
+    //   this.type_of_animals = types;
+    // }, err => {
+    //   console.log('Types of animals not found!');
+    // });
 
     this.shelterService.getAllShelters().subscribe((shelters) => {
       this.shelters = shelters;

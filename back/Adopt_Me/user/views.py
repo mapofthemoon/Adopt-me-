@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import user
+from .models import user as User
 from rest_framework.views import APIView
 from .serializers import userSerializers
 from rest_framework.response import Response
@@ -10,7 +10,7 @@ import datetime
 
 class register(APIView):
     def get(self, request):
-        users = user.objects.all()
+        users = User.objects.all()
         serializer = userSerializers(users, many=True)
         return Response(serializer.data)
     
@@ -26,7 +26,7 @@ class login(APIView):
         email = request.data['email']
         password = request.data['password']
 
-        user = user.objects.filter(email=email).first()
+        user = User.objects.filter(email=email).first()
 
         if user is None:
             raise AuthenticationFailed('User not found!')
@@ -40,7 +40,8 @@ class login(APIView):
             'iat': datetime.datetime.utcnow()
         }
 
-        token = jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')
+        token = jwt.encode(payload, 'secret', algorithm='HS256')
+            # .decode('utf-8')
         response = Response()
        
         response.set_cookie(key='jwt', value=token, httponly=True)
@@ -58,11 +59,11 @@ class UserView(APIView):
             raise AuthenticationFailed('Unauthenticated!')
 
         try:
-            payload = jwt.decode(token, 'secret', algorithm=['HS256'])
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
 
-        user = user.objects.filter(id=payload['id']).first()
+        user = User.objects.filter(id=payload['id']).first()
         serializer = userSerializers(user)
         return Response(serializer.data)
 
