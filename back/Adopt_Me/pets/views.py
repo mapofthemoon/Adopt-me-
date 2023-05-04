@@ -1,11 +1,13 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from rest_framework.views import APIView
 from .models import pet, shelter, volonturees
 from .serializers import PetSerializer, ShelterSerializer, VolontureesSerializer
 from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseNotAllowed
 
 @api_view(['GET'])
 def PetList(request):
@@ -16,12 +18,13 @@ def PetList(request):
 @api_view(['GET'])
 def PetDetail(request, pk):
     try:
-        pet = pet.objects.get(pk=pk)
+        pet_obj = pet.objects.get(pk=pk)
     except pet.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
-    serializer = PetSerializer(pet)
+    serializer = PetSerializer(pet_obj)
     return Response(serializer.data)
+
 
 
 class ShelterList(APIView):
@@ -42,8 +45,8 @@ def ShelterDetail(request, pk):
 
 class VolontureesList(APIView):
     def get(self, request):
-        volonturees = volonturees.objects.all()
-        serializer = VolontureesSerializer(volonturees, many=True)
+        volonturees_qs = volonturees.objects.all()
+        serializer = VolontureesSerializer(volonturees_qs, many=True)
         return Response(serializer.data)
 
     def post(self, request):
@@ -52,6 +55,7 @@ class VolontureesList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
 @api_view(['GET'])
 def VolontureesDetail(request, pk):
@@ -62,6 +66,37 @@ def VolontureesDetail(request, pk):
     
     serializer = VolontureesSerializer(volonturees)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def add_pet(request):
+    serializer = PetSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PUT'])
+def edit_pet(request, pk):
+    try:
+        pet_instance = pet.objects.get(id=pk)
+    except pet.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = PetSerializer(pet_instance, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+def delete_pet(request, pk):
+    pet = get_object_or_404(pet, pk=pk)
+    pet.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 
 def add_shelter(request):
@@ -76,10 +111,11 @@ def add_shelter(request):
    
     return JsonResponse({'error': 'Invalid request method'})
 
-def delete_shelter(request, shelter_id):
+
+def delete_shelter(request, pk):
     if request.method == 'DELETE':
         try:
-            shelter_instance = shelter.objects.get(id=shelter_id)
+            shelter_instance = shelter.objects.get(id=pk)
             shelter_instance.delete()
             
             return JsonResponse({'message': 'Shelter deleted successfully.'})
@@ -91,15 +127,14 @@ def delete_shelter(request, shelter_id):
 
 
 
-
-def edit_shelter(request, shelter_id):
-    if request.method == 'PUT':
+def edit_shelter(request, pk):
+    if request.method == 'POST' and request.POST.get('_method') == 'PUT':
         try:
-            shelter_instance = shelter.objects.get(id=shelter_id)
+            shelter_instance = shelter.objects.get(id=pk)
             
-            shelter_instance.name = request.PUT.get('name', shelter_instance.name)
-            shelter_instance.address = request.PUT.get('address', shelter_instance.address)
-            shelter_instance.phone = request.PUT.get('phone', shelter_instance.phone)
+            shelter_instance.name = request.POST.get('name', shelter_instance.name)
+            shelter_instance.address = request.POST.get('address', shelter_instance.address)
+            shelter_instance.phone = request.POST.get('phone', shelter_instance.phone)
             shelter_instance.save()
             
             return JsonResponse({
@@ -115,9 +150,33 @@ def edit_shelter(request, shelter_id):
     return JsonResponse({'error': 'Invalid request method.'})
 
 
-def add_pet(request, name, breed, age, gender, description, photo):
-    new_pet = pet(name=name, breed=breed, age=age, gender=gender, description=description, photo=photo)
-    new_pet.save()
-    return redirect('pet_detail', pk=new_pet.pk)
+
+@api_view(['POST'])
+def add_volonturees(request):
+    serializer = VolontureesSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['PUT'])
+def edit_volonturees(request, volonturee_id):
+    volonturee = get_object_or_404(volonturees, pk=volonturee_id)
+    serializer = VolontureesSerializer(volonturees, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def delete_volonturee(request, pk):
+    volonturee = get_object_or_404(volonturees, pk=pk)
+    if request.method == 'DELETE':
+        volonturee.delete()
+        return JsonResponse({'message': 'Volonturee deleted successfully.'}, status=204)
+    else:
+        return JsonResponse({'error': 'Invalid request method.'}, status=405)
 
 
