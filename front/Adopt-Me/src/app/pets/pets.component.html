@@ -25,8 +25,8 @@
 <!--      </div>-->
 
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floating_breed" placeholder="pet_breed" name="pet_breed" [(ngModel)]="pet.breed">
-            <label for="floating_breed">Breed: </label>
+            <input type="text" class="form-control" id="floating_breed" placeholder="pet_breed" name="pet_breed" [(ngModel)]="pet.type_of_animal">
+            <label for="floating_breed">Type of animal: </label>
         </div>
 
       <div class="form-floating mb-4">
@@ -64,7 +64,7 @@
         <h5 class="card-title">{{p.name}} </h5>
         <h6 class="card-subtitle mb-2 text-muted">
 <!--          {p.type_of_animal_id.type}}-->
-          {{p.breed}}
+          {{p.type_of_animal}}
         </h6>
 
         <p class="card-text">
@@ -90,8 +90,8 @@
               <!--      </div>-->
 
               <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="floating_breed_{{p.id}}" placeholder="pet_breed_{{p.id}}" name="pet_breed_{{p.id}}" [(ngModel)]="pet.breed">
-                  <label for="floating_breed_{{p.id}}">Breed: </label>
+                  <input type="text" class="form-control" id="floating_breed_{{p.id}}" placeholder="pet_breed_{{p.id}}" name="pet_breed_{{p.id}}" [(ngModel)]="pet.type_of_animal">
+                  <label for="floating_breed_{{p.id}}">Type of animal: </label>
               </div>
 
               <div class="form-floating mb-4">

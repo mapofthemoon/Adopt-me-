@@ -5,7 +5,7 @@ export interface Pet {
     id : number;
     name: string;
     // type_of_animal_id: Type_of_animal;
-    breed: string;
+    type_of_animal: string;
     age: number;
     gender: string;
     description: string;
