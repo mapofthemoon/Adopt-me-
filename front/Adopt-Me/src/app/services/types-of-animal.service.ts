@@ -36,7 +36,7 @@ export class TypesOfAnimalService {
   }
 
   public getTypeOfAnimalById(id: number): Observable<Type_of_animal>{
-    return this.http.get<Type_of_animal>(`${this.BASE_URL}${id}`);
+    return this.http.get<Type_of_animal>(`${this.BASE_URL}${id}/`);
   }
 
   public addTypeOfAnimal(type: Type_of_animal): Observable<Type_of_animal>{

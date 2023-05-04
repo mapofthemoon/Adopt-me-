@@ -20,9 +20,9 @@ export class SheltersService {
   constructor(private http: HttpClient) {
     this.BASE_URL = COMMON_BASE_URL + 'shelters/';
     this._shelters =  [
-      {id: 1, name: 'Kotopes', city: 'Almaty', country: 'Kazakhstan'},
-      {id: 2, name: 'Bayterek', city: 'Astana', country: 'Kazakhstan'},
-      {id: 3, name: 'Otyrar', city: 'Shymkent', country: 'Kazakhstan'},
+      {id: 1, name: 'Kotopes', address: 'Almaty', phone: 'Kazakhstan'},
+      {id: 2, name: 'Bayterek', address: 'Astana', phone: 'Kazakhstan'},
+      {id: 3, name: 'Otyrar', address: 'Shymkent', phone: 'Kazakhstan'},
     ];
   }
 
@@ -37,11 +37,11 @@ export class SheltersService {
   }
 
   public getShelterById(id: number): Observable<Shelter> {
-    return this.http.get<Shelter>(`${this.BASE_URL}${id}`);
+    return this.http.get<Shelter>(`${this.BASE_URL}${id}/`);
   }
 
   public addShelter(shelter: Shelter): Observable<Shelter> {
-    return this.http.post<Shelter>(`${this.BASE_URL}`, shelter);
+    return this.http.post<Shelter>(`${COMMON_BASE_URL}add_shelter/`, shelter);
     // this._shelters.push(shelter);
     //
     // return new Observable<Shelter>(observer => {
@@ -52,7 +52,7 @@ export class SheltersService {
   }
 
   public updateShelter(id: number, shelter: Shelter): Observable<Shelter> {
-    return this.http.put<Shelter>(`${this.BASE_URL}${id}`, shelter);
+    return this.http.put<Shelter>(`${this.BASE_URL}${id}/edit/`, shelter);
 
     // for(let i = 0; i < this._shelters.length; i++){
     //   if(this._shelters[i].id === shelter.id){
@@ -69,7 +69,7 @@ export class SheltersService {
   }
 
   public deleteShelter(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.BASE_URL}${id}`);
+    return this.http.delete<any>(`${this.BASE_URL}${id}/delete/`);
 
     // for (let i = 0; i < this._shelters.length; i++) {
     //   if (this._shelters[i].id === id) {

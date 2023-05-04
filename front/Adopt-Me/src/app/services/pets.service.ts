@@ -41,11 +41,11 @@ export class PetsService {
   }
 
   public getPetById(id: number): Observable<Pet> {
-    return this.http.get<Pet>(`${this.BASE_URL}${id}`);
+    return this.http.get<Pet>(`${this.BASE_URL}${id}/`);
   }
 
   public addPet(pet: Pet): Observable<Pet> {
-    return this.http.post<Pet>(`${this.BASE_URL}`, pet);
+    return this.http.post<Pet>(`${COMMON_BASE_URL}add_pet/`, pet);
     // this.pets.push(pet);
     //
     // return new Observable<Pet>(observer => {
@@ -56,7 +56,7 @@ export class PetsService {
   }
 
   public updatePet(id: number, pet: Pet): Observable<Pet> {
-    return this.http.put<Pet>(`${this.BASE_URL}${id}`, pet);
+    return this.http.put<Pet>(`${this.BASE_URL}${id}/edit/`, pet);
 
     // for(let i = 0; this.pets.length; i++){
     //   if(this.pets[i].id == pet.id){
@@ -74,7 +74,7 @@ export class PetsService {
   }
 
   public deletePet(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.BASE_URL}${id}`)
+    return this.http.delete<any>(`${this.BASE_URL}${id}/delete/`)
     // for(let i = 0; this.pets.length; i++){
     //   if(this.pets[i].id == id){
     //     this.pets.splice(i, 1);

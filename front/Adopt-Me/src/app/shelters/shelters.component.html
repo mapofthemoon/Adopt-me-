@@ -18,13 +18,13 @@
       </div>
 
       <div class="form-floating mb-3  ml-3">
-        <input type="text" class="form-control" id="floatingCountry" placeholder="shelter_country" name="shelter_country" [(ngModel)]="shelter.country">
-        <label for="floatingCountry">Country</label>
+        <input type="text" class="form-control" id="floatingCountry" placeholder="shelter_country" name="shelter_country" [(ngModel)]="shelter.phone">
+        <label for="floatingCountry">Address</label>
       </div>
 
       <div class="form-floating mb-3  ml-3">
-        <input type="text" class="form-control" id="floatingCity" placeholder="shelter_city" name="shelter_city" [(ngModel)]="shelter.city">
-        <label for="floatingCity">City</label>
+        <input type="text" class="form-control" id="floatingCity" placeholder="shelter_city" name="shelter_city" [(ngModel)]="shelter.address">
+        <label for="floatingCity">Phone</label>
       </div>
 
 
@@ -36,7 +36,8 @@
 <!--      <img src="..." class="card-img-top" alt="...">-->
       <div class="card-body">
         <h5 class="card-title">{{s.name}}</h5>
-        <p class="card-text">{{s.city}}, {{s.country}}</p>
+        <p class="card-text">{{s.address}}</p>
+        <p class="card-text">{{s.phone}}</p>
         <button class="btn btn-primary" (click)="edit_shelter(s)" [disabled]="show_shelter_form">Edit</button>
         <button class="btn btn-danger ml-3" (click)="delete_shelter(s.id)">Delete</button>
       </div>
@@ -48,13 +49,13 @@
       </div>
 
       <div class="form-floating mb-3  ml-3">
-        <input type="text" class="form-control" id="floatingCountry{{s.id}}" placeholder="shelter_country" name="shelter_country_{{s.id}}" [(ngModel)]="shelter.country">
-        <label for="floatingCountry{{s.id}}">Country</label>
+        <input type="text" class="form-control" id="floatingCountry{{s.id}}" placeholder="shelter_country" name="shelter_country_{{s.id}}" [(ngModel)]="shelter.phone">
+        <label for="floatingCountry{{s.id}}">Address</label>
       </div>
 
       <div class="form-floating mb-3  ml-3">
-        <input type="text" class="form-control" id="floatingCity{{s.id}}" placeholder="shelter_city" name="shelter_city_{{s.id}}" [(ngModel)]="shelter.city">
-        <label for="floatingCity{{s.id}}">City</label>
+        <input type="text" class="form-control" id="floatingCity{{s.id}}" placeholder="shelter_city" name="shelter_city_{{s.id}}" [(ngModel)]="shelter.address">
+        <label for="floatingCity{{s.id}}">Phone</label>
       </div>
 
       <button class="btn btn-success mb-3" type="submit">UPDATE</button>
