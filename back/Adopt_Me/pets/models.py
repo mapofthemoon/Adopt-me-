@@ -1,17 +1,5 @@
 from django.db import models
 
-class pet(models.Model):
-    name = models.CharField(max_length=50)
-    breed = models.CharField(max_length=50)
-    age = models.PositiveIntegerField()
-    gender = models.CharField(max_length=10)
-    description = models.TextField()
-    photo = models.ImageField(upload_to='animal_photos/')
-
-    def to_json(self):
-        return self.name
-    
-
 class shelter(models.Model):
     name = models.CharField(max_length=50)
     address = models.CharField(max_length=100)
@@ -19,6 +7,20 @@ class shelter(models.Model):
 
     def to_json(self):
         return self.name
+    
+    
+class pet(models.Model):
+    name = models.CharField(max_length=50)
+    type_of_animal = models.CharField(max_length=50)
+    age = models.PositiveIntegerField()
+    gender = models.CharField(max_length=10)
+    description = models.TextField()
+    photo = models.ImageField(upload_to='animal_photos/')
+    shelter = models.ForeignKey(shelter, on_delete=models.CASCADE)
+    
+    def to_json(self):
+        return self.name
+    
 
 
 class volonturees(models.Model):
@@ -32,10 +34,8 @@ class volonturees(models.Model):
     
 
 
-
 class learnmore(models.Model):
     info = models.TextField()
-
 
     def to_json(self):
         return self.info
