@@ -1,7 +1,8 @@
+import json
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.http import Http404, HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse, HttpResponseBadRequest, JsonResponse
 from rest_framework.views import APIView
 from .models import pet, shelter, volonturees, LearnMore
 from .serializers import PetSerializer, ShelterSerializer, VolontureesSerializer
@@ -100,25 +101,27 @@ def edit_pet(request, pk):
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-@api_view(['DELETE'])
+@csrf_exempt
 def delete_pet(request, pk):
-    pet = get_object_or_404(pet, pk=pk)
-    pet.delete()
-    return Response(status=status.HTTP_204_NO_CONTENT)
+    try:
+        Pet = get_object_or_404(pet, pk=pk)
+    except Http404:
+        return JsonResponse({'error': 'Pet not found'}, status=404)
+    Pet.delete()
+    return JsonResponse({'success': True})
 
 
 @csrf_exempt
 def add_shelter(request):
     if request.method == 'POST':
         name = request.POST.get('name')
+        if not name:
+            return JsonResponse({'error': 'Name is required'})
         address = request.POST.get('address')
         phone = request.POST.get('phone')
         new_shelter = shelter(name=name, address=address, phone=phone)
         new_shelter.save()
         return JsonResponse({'name': new_shelter.name})
-
-   
     return JsonResponse({'error': 'Invalid request method'})
 
 
@@ -136,31 +139,37 @@ def delete_shelter(request, pk):
     return JsonResponse({'error': 'Invalid request method.'})
 
 
+import json
 
+@csrf_exempt
 def edit_shelter(request, pk):
-    if request.method == 'POST' and request.POST.get('_method') == 'PUT':
+    if request.method == 'PUT':
         try:
-            shelter_instance = shelter.objects.get(id=pk)
-            
-            shelter_instance.name = request.POST.get('name', shelter_instance.name)
-            shelter_instance.address = request.POST.get('address', shelter_instance.address)
-            shelter_instance.phone = request.POST.get('phone', shelter_instance.phone)
-            shelter_instance.save()
-            
-            return JsonResponse({
-                'id': shelter_instance.id,
-                'name': shelter_instance.name,
-                'address': shelter_instance.address,
-                'phone': shelter_instance.phone
-            })
-        
+            shelter_instance = shelter.objects.get(pk=pk)
         except shelter.DoesNotExist:
             return JsonResponse({'error': 'Shelter does not exist.'}, status=404)
-    
+
+        try:
+            json_data = request.body.decode('utf-8')
+            data = json.loads(json_data)
+        except json.JSONDecodeError:
+            return HttpResponseBadRequest('Invalid JSON string.')
+
+        shelter_instance.name = data.get('name', shelter_instance.name)
+        shelter_instance.address = data.get('address', shelter_instance.address)
+        shelter_instance.phone = data.get('phone', shelter_instance.phone)
+        shelter_instance.save()
+
+        return JsonResponse({
+            'id': shelter_instance.id,
+            'name': shelter_instance.name,
+            'address': shelter_instance.address,
+            'phone': shelter_instance.phone
+        })
+
     return JsonResponse({'error': 'Invalid request method.'})
 
-
-
+@csrf_exempt
 @api_view(['POST'])
 def add_volonturees(request):
     serializer = VolontureesSerializer(data=request.data)
@@ -172,8 +181,8 @@ def add_volonturees(request):
 
 
 @api_view(['PUT'])
-def edit_volonturees(request, volonturee_id):
-    volonturee = get_object_or_404(volonturees, pk=volonturee_id)
+def edit_volonturees(request, pk):
+    volonturee = get_object_or_404(volonturees, pk=pk)
     serializer = VolontureesSerializer(volonturees, data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -181,6 +190,7 @@ def edit_volonturees(request, volonturee_id):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@csrf_exempt
 def delete_volonturee(request, pk):
     volonturee = get_object_or_404(volonturees, pk=pk)
     if request.method == 'DELETE':
