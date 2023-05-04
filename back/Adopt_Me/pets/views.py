@@ -1,13 +1,14 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.http import HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from rest_framework.views import APIView
-from .models import pet, shelter, volonturees
+from .models import pet, shelter, volonturees, LearnMore
 from .serializers import PetSerializer, ShelterSerializer, VolontureesSerializer
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseNotAllowed
+from django.views.decorators.csrf import csrf_exempt
 
 @api_view(['GET'])
 def PetList(request):
@@ -29,19 +30,24 @@ def PetDetail(request, pk):
 
 class ShelterList(APIView):
     def get(self, request):
-        shelters = shelter.objects.all()
-        serializer = ShelterSerializer(shelters, many=True)
+        Shelters = shelter.objects.all()
+        serializer = ShelterSerializer(Shelters, many=True)
         return Response(serializer.data)
 
-@api_view(['GET'])
-def ShelterDetail(request, pk):
-    try:
-        shelter = shelter.objects.get(pk=pk)
-    except shelter.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+class ShelterDetail(APIView):
+    def get(self, request, pk):
+        Shelter = None
+        try:
+            Shelter = get_object_or_404(shelter, pk=pk)
+        except Http404:
+            pass
 
-    serializer = ShelterSerializer(shelter)
-    return Response(serializer.data)
+        if Shelter:
+            serializer = ShelterSerializer(Shelter)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
 
 class VolontureesList(APIView):
     def get(self, request):
@@ -57,15 +63,19 @@ class VolontureesList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
-@api_view(['GET'])
-def VolontureesDetail(request, pk):
-    try:
-        volonturees = volonturees.objects.get(pk=pk)
-    except volonturees.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    
-    serializer = VolontureesSerializer(volonturees)
-    return Response(serializer.data)
+class VolontureesDetail(APIView):
+    def get(self, request, pk):
+        Volonturee = None  
+        try:
+            Volonturee = get_object_or_404(volonturees, pk=pk)  
+        except Http404:
+            Volonturee = None  
+
+        serializer = VolontureesSerializer(Volonturee)
+        return Response(serializer.data)
+
+
+
 
 
 @api_view(['POST'])
@@ -98,7 +108,7 @@ def delete_pet(request, pk):
     return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-
+@csrf_exempt
 def add_shelter(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -179,4 +189,8 @@ def delete_volonturee(request, pk):
     else:
         return JsonResponse({'error': 'Invalid request method.'}, status=405)
 
+
+def show_text(request):
+    my_text = LearnMore.objects.first()
+    return render(request, 'show_text.html', {'text': my_text.text})
 

@@ -1,7 +1,7 @@
 from django.db import models
 
 class shelter(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50,blank=True, null=True)
     address = models.CharField(max_length=100)
     phone = models.CharField(max_length=50)
 
@@ -32,13 +32,9 @@ class volonturees(models.Model):
     def to_json(self):
         return self.name
     
+class LearnMore(models.Model):
+    text = models.TextField()
 
-
-class learnmore(models.Model):
-    info = models.TextField()
-
-    def to_json(self):
-        return self.info
 
 
 
