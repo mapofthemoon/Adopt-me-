@@ -190,6 +190,7 @@ def edit_volonturees(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+
 @csrf_exempt
 def delete_volonturee(request, pk):
     volonturee = get_object_or_404(volonturees, pk=pk)
@@ -203,4 +204,7 @@ def delete_volonturee(request, pk):
 def show_text(request):
     my_text = LearnMore.objects.first()
     return render(request, 'show_text.html', {'text': my_text.text})
+
+my_text = LearnMore.objects.create(text="Welcome to our Adoption Center! We are a non-profit organization dedicated to finding loving homes for animals in need. We strive to provide a safe and comfortable environment for all of our animals while they wait for their forever homes. At our center, you will find a variety of animals available for adoption, including dogs, cats, rabbits, and sometimes even small animals like guinea pigs or hamsters. Each animal has been thoroughly examined by a veterinarian and has received any necessary medical treatment and vaccinations.")
+my_text.save()
 
